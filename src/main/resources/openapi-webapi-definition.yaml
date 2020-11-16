@@ -1,0 +1,48 @@
+openapi: 3.0.3
+info:
+  title: A Simple API
+  description: Simple API that will do some computation with your parameters
+  version: 1.0.0
+paths:
+  /simple:
+    post:
+      operationId: postSomeStuff
+      summary: Do some stuff with the request body
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Input"
+      responses:
+        '200':
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Output"
+        '420':
+          description: The application Service didn't like you
+components:
+  schemas:
+    Input:
+      properties:
+        field1:
+          type: string
+        field2:
+          type: integer
+      required:
+        - field1
+        - field2
+    Output:
+      properties:
+        uniqueField:
+          type: string
+      required:
+        - uniqueField
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - jwtAuth: []
