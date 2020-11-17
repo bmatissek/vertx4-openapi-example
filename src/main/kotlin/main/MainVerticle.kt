@@ -21,7 +21,6 @@ class MainVerticle : CoroutineVerticle() {
         val loginRouter = loginController.createRouter()
         mainRouter.mountSubRouter("/api/login", loginRouter)
 
-
         val openApiSpec = "src/main/resources/openapi-webapi-definition.yaml"
         val simpleController = SimpleController(vertx, openApiSpec, jwtAuthProvider)
         val simpleApiRouter = simpleController.createRouter()

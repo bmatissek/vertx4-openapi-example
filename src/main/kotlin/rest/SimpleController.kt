@@ -32,6 +32,9 @@ class SimpleController(
         routerBuilder.operation("postSomeStuff")
             .handler(::postSomeStuffHandler)
 
+        routerBuilder.operation("uploadImages")
+            .handler(::uploadImagesHandler)
+
         val router = routerBuilder.createRouter()
         router.route().failureHandler(::globalFailureHandler)
         return router
@@ -51,6 +54,10 @@ class SimpleController(
         val outputJson = JsonObject().put("uniqueField", outputDto.uniqueField)
 
         rc.response().setStatusCode(200).end(outputJson.toBuffer())
+    }
+
+    private fun uploadImagesHandler(rc: RoutingContext) {
+        rc.response().setStatusCode(200).end()
     }
 
     private fun globalFailureHandler(rc: RoutingContext) {

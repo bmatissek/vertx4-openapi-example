@@ -4,6 +4,7 @@ info:
   description: Simple API that will do some computation with your parameters
   version: 1.0.0
 paths:
+### cURL example: curl -X POST -H "Content-type:application/json" -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmb28iOiJiYXIiLCJpYXQiOjE2MDU1NTU4Nzh9.LXSdPgwDqEIGTIWfMujzHFLk347IOtMdqvcu7Oz-P-w" -d '{"field1":"Foo","field2":43}' -v localhost:8080/api/simple
   /simple:
     post:
       operationId: postSomeStuff
@@ -22,6 +23,38 @@ paths:
                 $ref: "#/components/schemas/Output"
         '420':
           description: The application Service didn't like you
+### cURL example: curl -X POST -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmb28iOiJiYXIiLCJpYXQiOjE2MDU1NTU4Nzh9.LXSdPgwDqEIGTIWfMujzHFLk347IOtMdqvcu7Oz-P-w" -F metadata='{"field1":"Foo","field2":43}' -F files=@someFilePath.png -F files=@someOtherFilePath.png -v localhost:8080/api/upload
+  /upload:
+    post:
+      summary: Upload an array of image files and some other stuff
+      operationId: uploadImages
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                metadata:
+                  type: object
+                  properties:
+                    field1:
+                      type: string
+                    field2:
+                      type: integer
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+              required:
+                - metadata
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Output"
 components:
   schemas:
     Input:
