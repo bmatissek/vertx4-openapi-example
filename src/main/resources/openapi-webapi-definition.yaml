@@ -36,11 +36,8 @@ paths:
               properties:
                 metadata:
                   type: object
-                  properties:
-                    field1:
-                      type: string
-                    field2:
-                      type: integer
+                  allOf:
+                    - $ref: '#/components/schemas/Input'
                 files:
                   type: array
                   items:
